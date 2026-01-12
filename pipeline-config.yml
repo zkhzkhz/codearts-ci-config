@@ -1,113 +1,139 @@
-message-push:
-  git_url: https://github.com/opensourceways/message-push.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/ea5489fc52984d36a1b33fc6378ddb85?from=out-project&v=1
-  endpoint_id: a00c8423f08b4f2fb68c72bd739d4f48
-  owner: shishupei, zhaokunhang,hourunze
-  mail: shishupei@huawei.com, zhaokunhang@huawei.com,hourunze@h-partners.com
+import sys
+import json
 
-message-transfer:
-  git_url: https://github.com/opensourceways/message-transfer.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/9aa09cdf0a864a9f8cb01f2254bbde17?from=in-project&v=1
-  endpoint_id: 3d8e02477789490fb10b885e927c027d
-  owner: shishupei, zhaokunhang,hourunze
-  mail: shishupei@huawei.com, zhaokunhang@huawei.com,hourunze@h-partners.com
+# 检查是否提供了文件路径作为命令行参数
+if len(sys.argv) < 4:
+    print("Usage: python check_vulnerabilities.py <json_file_path>")
+    sys.exit(1)
 
-message-collect:
-  git_url: https://github.com/opensourceways/message-collect.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/5719a88575cf416dbf5fb8186a4997ce?from=in-project&v=1
-  endpoint_id: 0ac98ded10804596b13d2341ede6e5b6
-  owner: shishupei, zhaokunhang,hourunze
-  mail: shishupei@huawei.com, zhaokunhang@huawei.com,hourunze@h-partners.com
+# 从命令行获取 JSON 文件路径
+json_file_path = sys.argv[1]
+json_putOnRecord_file_path = sys.argv[2]
+repoName = sys.argv[3]
 
-BigFiles:
-  git_url: https://github.com/opensourceways/BigFiles.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/58d2a62564c14ce1815dcce4d1064020?from=in-project&v=1
-  endpoint_id: 213f55413c51481da30769de540a5577
-  owner: jufangqun, zhouyi, zhaokunhang
-  mail: jufangqun@huawei.com, zhouyi198@h-partners.com, zhaokunhang@huawei.com
 
-certification-server:
-  git_url: https://github.com/opensourceways/certification-server.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/128c1a12cee14cd3ae4059676f9c3c61?from=out-project&v=1
-  endpoint_id: 8c4ad6369c294b33865f286154e64605
-  owner: zhaoyan, liyanghang, zhaokunhang
-  mail: zhaoyan150@huawei.com, liyanghang@huawei.com, zhaokunhang@huawei.com
+# # 从命令行获取 JSON 文件路径
+# json_file_path = "D:\\Download\\Downloads\\SecurityTest20230201-master (6)\\SecurityTest20230201-master\\SecurityTest\\TestSuite\\test_license_scan.json"
+# json_putOnRecord_file_path = "D:\\fetchNewProjects\\repo_putOnRecord_dependencies.json"
+# repoName = "opensourceways/jenkins-log-scanner"
+# 加载 JSON 文件，指定编码为 utf-8
+try:
+    with open(json_file_path, encoding='utf-8') as f:
+        data = json.load(f)
+except UnicodeDecodeError:
+    print(f"Error: Failed to decode the file '{json_file_path}'. Please check the file encoding.")
+    sys.exit(1)
+try:
+    with open(json_putOnRecord_file_path, encoding='utf-8') as f:
+        putOnRecordData = json.load(f)
+except UnicodeDecodeError:
+    print(f"Error: Failed to decode the file '{json_file_path}'. Please check the file encoding.")
+    sys.exit(1)
 
-message-manager:
-  git_url: https://github.com/opensourceways/message-manager.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/e5989fec9a70450e986fdce82f0e09dc?from=out-project&v=1
-  endpoint_id: 34a107fde9ee4c828f70cd8f23e4e115
-  owner: hourunze, shishupei, zhaokunhang
-  mail: hourunze@h-partners.com, shishupei@huawei.com, zhaokunhang@huawei.com
+cnt = 0
+putOnRecordCnt = 0
 
-EasySoftwareService:
-  git_url: https://github.com/opensourceways/EasySoftwareService.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/99c7d59e96c74d5c963cbf39a9049518?from=in-project&v=1
-  endpoint_id: 582a9b18ea9e4d8993b4461761d3f1d3
-  owner: xiechengzhi, zhaiwenjie, zhaokunhang
-  mail: xiechengzhi3@h-partners.com, zhaiwenjie1@huawei.com, zhaokunhang@huawei.com, jun.zhongjun@huawei.com
 
-EasySoftwareInput:
-  git_url: https://github.com/opensourceways/EasySoftwareInput.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/704fc4f23f8a43efaa7a470bbb0b99ec?from=in-project&v=1
-  endpoint_id: ba94ad848e4f4fe399650626298f0f74
-  owner: gouzhonglin, zhaiwenjie, zhaokunhang
-  mail: gouzhonglin@huawei.com, zhaiwenjie1@huawei.com, zhaokunhang@huawei.com
+def findPutOnRecord(vulnerabilityId, repoName, pkgName):
+    for putOnRecordDataItem in putOnRecordData:
+        if putOnRecordDataItem["VulnerabilityID"] == vulnerabilityId and putOnRecordDataItem[
+            "full_name"] == repoName and putOnRecordDataItem["PkgName"] == pkgName:
+            return True
+    return False
 
-easysoftware-autoupgrade:
-  git_url: https://github.com/opensourceways/easysoftware-autoupgrade.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/dfffe2767c914e96aa7e7ae294ba567c?from=in-project&v=1
-  endpoint_id: 94d7a318bf27475291fde12d4e2fc4e2
-  owner: lifan, zhaiwenjie, zhaokunhang
-  mail: lifan140@h-partners.com, zhaiwenjie1@huawei.com, zhaokunhang@huawei.com
 
-go-gitcode:
-  git_url: https://github.com/opensourceways/go-gitcode.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/4d0001dbe76242f99bd0cf1e9a61917b?from=in-project&v=1
-  endpoint_id: 03237f39828f4e79a0d03e0f22dd9d4c
-  owner: fengchao, zhaokunhang
-  mail: fengchao73@h-partners.com, zhaokunhang@huawei.com
+def analyze_and_report(json_data):
+    # 1. 数据解析
+    if isinstance(json_data, str):
+        data = json.loads(json_data)
+    else:
+        data = json_data
 
-om-webserver:
-  git_url: https://github.com/opensourceways/om-webserver.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/096058e3d0e941ec8eba54e20a928f3f?from=in-project&v=1
-  endpoint_id: 52be143a360543c6919f5eff2d89ba1e
-  owener: taofeihu
-  mail: taofeihu1@huawei.com, zhaokunhang@huawei.com
-  branch: stable
-  
-oneid-server:
-  git_url: https://github.com/opensourceways/oneid-server.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/ad194e75781f4cde9fe483e15e4d8c69?from=in-project&v=1
-  endpoint_id: 70c928f5254f42f5af7980c4dd274036
-  owener: taofeihu
-  mail: taofeihu1@huawei.com, zhaokunhang@huawei.com, jun.zhongjun@huawei.com
+    results = data.get("Results", [])
 
-datastat-server:
-  git_url: https://github.com/opensourceways/datastat-server.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/66fb93d75f8d41f0a1082bbf4770f5a9?from=in-project&v=1
-  endpoint_id: 383974d1f5764ae98ddc46fc3245265e
-  owener: wucaiping
-  mail: wucaiping1@huawei.com, zhaokunhang@huawei.com, jun.zhongjun@huawei.com
+    # 定义全局标志位
+    HAS_HIGH_RISK = False
 
-EasySearch:
-  git_url: https://github.com/opensourceways/EasySearch.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/5288ca277b674b3393450c0bd0f0d6d5?from=in-project&v=1
-  endpoint_id: 7e0dd4f853a44979a8d51ea779b1a1ac
-  owener: lifan
-  mail: lifan140@h-partners.com, zhaokunhang@huawei.com,jun.zhongjun@huawei.com
-  branch: refactor
+    # 2. 建立 License 映射索引: (Target, PkgName) -> Info
+    license_index = {}
+    for res in results:
+        if res.get("Class") == "license":
+            target_path = res.get("Target")
+            for lic in res.get("Licenses", []):
+                pkg_name = lic.get("PkgName")
+                license_index[(target_path, pkg_name)] = {
+                    "Name": lic.get("Name"),
+                    "Severity": lic.get("Severity", "UNKNOWN").upper()
+                }
 
-EasySearch-Import:
-  git_url: https://github.com/opensourceways/EasySearch-Import.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/0dfc2b00b34c48868ac855f62a1586aa?from=in-project&v=1
-  endpoint_id: 7fbfbfdb3ef44a82b1a4dcdfcd5a2506
-  owener: lifan
-  mail: lifan140@h-partners.com, zhaokunhang@huawei.com, jun.zhongjun@huawei.com
-  
-om-kafka:
-  git_url: https://github.com/opensourceways/om-kafka.git
-  pipeline_url: https://devcloud.cn-north-4.huaweicloud.com/cicd/project/3a76c1785dda4b13a399937d1978f240/pipeline/history/434e2323aa3e44449b7fe5cc2a24c2b6?from=out-project&v=1
-  endpoint_id: 833845f535f344a381b9466c16ee3840
-  owener: taofeihu
-  mail: taofeihu1@huawei.com, zhaokunhang@huawei.com, jun.zhongjun@huawei.com
+    print("=" * 110)
+    print(f"{'LICENSE 扫描明细报告 (直接依赖)':^110}")
+    print("=" * 110)
+
+    # 3. 核心分析循环
+    for res in results:
+        if res.get("Class") == "lang-pkgs":
+            target = res.get("Target")
+            packages = res.get("Packages", [])
+
+            # 筛选直接依赖
+            direct_deps = [p for p in packages if p.get("Relationship") == "direct"]
+            if not direct_deps:
+                continue
+
+            print(f"\n📂 扫描目标: {target}")
+            print(f"   {'-' * 100}")
+            print(f"   {'状态':<4} | {'直接依赖包名':<55} | {'License':<15} | {'风险级别':<10}")
+            print(f"   {'-' * 100}")
+
+            stats = {"CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0, "UNKNOWN": 0}
+
+            for pkg in direct_deps:
+                p_name = pkg.get("Name")
+                # 检索 License 信息
+                info = license_index.get((target, p_name), {"Name": "Unknown", "Severity": "UNKNOWN"})
+                sev = info["Severity"]
+
+                # 更新统计
+                if sev in stats:
+                    stats[sev] += 1
+                else:
+                    stats["UNKNOWN"] += 1
+
+                # 检查并更新全局高危标志
+                if sev in ["HIGH", "CRITICAL"]:
+                    HAS_HIGH_RISK = True
+                    status_icon = "[!]"
+                else:
+                    status_icon = "[OK]"
+
+                # 打印每一行详情
+                print(f"   {status_icon:<4} | {p_name:<55} | {info['Name']:<15} | {sev:<10}")
+
+            # 打印当前 Target 的统计数据（包含所有级别）
+            print(f"   {'-' * 100}")
+            summary = " | ".join([f"{k}: {v}" for k, v in stats.items()])
+            print(f"   📊 统计摘要: {summary}")
+
+    # 4. 最终全局风险判定
+    print("\n" + "=" * 110)
+    print(f"{'全局风险判定结果':^110}")
+    print("-" * 110)
+    if HAS_HIGH_RISK:
+        print(f"{'🔴 警告：项目中存在 HIGH 或 CRITICAL 级别的 License 风险！':^110}")
+    else:
+        print(f"{'🟢 通过：项目中未发现高危 License 风险。':^110}")
+    print("=" * 110)
+
+    return HAS_HIGH_RISK
+
+
+# 运行分析
+HAS_HIGH_RISK_FOUND = analyze_and_report(data)
+
+if HAS_HIGH_RISK_FOUND:
+    print(f"存在高危license，见上述详情.")
+    sys.exit(1)
+else:
+    print(f"license合规扫描通过.")
+    sys.exit(0)
